@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [DefaultExecutionOrder(0)]
 [RequireComponent(typeof(InputManager), typeof(BodyContacts))]
@@ -263,6 +263,7 @@ public class PlayerController : MonoBehaviour, IMoveable, IFerriable, IDamageabl
         NotifyAnimationEventTriggered(AnimationTriggerType.Flinch);
     }
 
+    private DeathScreenManager deathScreenManager;
     public void Die()
     {
         // In cases of instant-kill effects.
@@ -271,6 +272,8 @@ public class PlayerController : MonoBehaviour, IMoveable, IFerriable, IDamageabl
             CurrentHealth = 0;
         }
         NotifyAnimationEventTriggered(AnimationTriggerType.DyingStart);
+        deathScreenManager.ShowDeathScreen();
+
     }
 
     #endregion
@@ -296,7 +299,7 @@ public class PlayerController : MonoBehaviour, IMoveable, IFerriable, IDamageabl
     [HideInInspector] public Vector2 FrameVelocity;
 
     public IMovement Mover { get; private set; }
-
+    private WinScreenManager winScreenManager;
     private void Awake()
     {
         BodyContacts = GetComponent<BodyContacts>();
@@ -327,9 +330,13 @@ public class PlayerController : MonoBehaviour, IMoveable, IFerriable, IDamageabl
         Animator = GetComponent<Animator>();
         FX = GetComponent<PlayerFX>();
 
+        deathScreenManager = FindObjectOfType<DeathScreenManager>();
+        winScreenManager = FindObjectOfType<WinScreenManager>();
+
         Mover = GetComponent<IMovement>();
         CollisionBox = GetComponent<BoxCollider2D>();
         _rb = CollisionBox.attachedRigidbody;
+
     }
 
     private void Start()
