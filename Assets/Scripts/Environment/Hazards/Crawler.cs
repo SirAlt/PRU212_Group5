@@ -20,22 +20,14 @@ public class Crawler : MonoBehaviour
     [SerializeField] private float wallTurnNudgeRight;
     [SerializeField] private float wallTurnNudgeUp;
 
-    //private float _zAxisRot;
-
-    private void Start()
-    {
-        //_zAxisRot = transform.eulerAngles.z;
-        Rotate(0f);
-    }
-
     private void FixedUpdate()
     {
-        CheckBounds();
+        CheckFlipPoints();
         CheckFooting();
         Move();
     }
 
-    private void CheckBounds()
+    private void CheckFlipPoints()
     {
         foreach (Transform flipPoint in flipPoints)
         {
@@ -59,22 +51,14 @@ public class Crawler : MonoBehaviour
         {
             transform.position += groundTurnNudgeRight * transform.right;
             transform.position -= groundTurnNudgeDown * transform.up;
-            Rotate(-90f);
+            transform.Rotate(0f, 0f, -90f);
         }
         else if (wallTurn)
         {
             transform.position += wallTurnNudgeRight * transform.right;
             transform.position += wallTurnNudgeUp * transform.up;
-            Rotate(90f);
+            transform.Rotate(0f, 0f, 90f);
         }
-    }
-
-    private void Rotate(float angle)
-    {
-        //_zAxisRot += angle;
-        //_zAxisRot %= 360f;
-        //transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, _zAxisRot);
-        transform.Rotate(0f, 0f, angle);
     }
 
     private void Move()

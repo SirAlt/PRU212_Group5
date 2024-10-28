@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.IO;
-using System;
-
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -15,7 +13,6 @@ public class TilemapToPngEditor : Editor
     public override void OnInspectorGUI()
     {
         TilemapToPng GTM = (TilemapToPng)target;
-
 
         //DrawDefaultInspector();
 
@@ -37,12 +34,8 @@ public class TilemapToPngEditor : Editor
                     GTM.ExportarPng(nombre);
                 }
             }
-
         }
-
-
     }
-
 }
 #endif
 
@@ -61,7 +54,6 @@ public class TilemapToPng : MonoBehaviour
     {
         tm = GetComponent<Tilemap>();
         Sprite SpriteCualquiera = null;
-
 
         for (int x = 0; x < tm.size.x; x++) //Hallamos el punto menor y mayor
         {

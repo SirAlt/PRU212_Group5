@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3754400c88b23294a88b527da97b3532, type: 3}
+  m_Name: BlindHuntress_Abilities_Lvl4
+  m_EditorClassIdentifier: 
+  WallSlideLearnt: 1
+  WallSlideGravityModifier: 0.175
+  WallJumpLearnt: 1
+  WallJumpPower: 0
+  WallJumpAngle: 20
+  AirJumpCharges: 0
+  AirJumpPower: 0
+  RechargeJumpsOnWall: 1
+  DashLearnt: 1
+  DashCooldown: 0.1
+  AirDashCharges: 1
+  InvincibleDash: 0
+  RechargeDashesOnWall: 1
+  SlashCooldown: 0.05

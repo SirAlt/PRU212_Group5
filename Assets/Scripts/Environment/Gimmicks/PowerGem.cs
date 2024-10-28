@@ -9,7 +9,7 @@ public class PowerGem : MonoBehaviour
     [SerializeField] private float maxTimeBetweenGleams = 3.0f;
 
     [SerializeField] private LayerMask playerAttackLayers;
-    [SerializeField] private float hitStopDuration = 0.15f;
+    [SerializeField] private float hitStopDuration = 0.1f;
     [SerializeField] private float respawnDelay;
 
     private SpriteRenderer _sprite;
@@ -18,11 +18,18 @@ public class PowerGem : MonoBehaviour
 
     private float _timer;
 
-    private void Start()
+    private void Awake()
     {
         _sprite = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         _hitbox = GetComponent<Collider2D>();
+    }
+
+    private void OnEnable()
+    {
+        _sprite.enabled = true;
+        _animator.enabled = true;
+        _hitbox.enabled = true;
     }
 
     private void Update()
@@ -36,7 +43,6 @@ public class PowerGem : MonoBehaviour
         }
     }
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Player attacks are nested 2 levels down.
@@ -44,8 +50,9 @@ public class PowerGem : MonoBehaviour
             && collision.transform.parent.parent.TryGetComponent<PlayerController>(out var player))
         {
             HitStop.Instance.Stop(hitStopDuration);
-            player.AirJumpCharges = System.Math.Min(player.AirJumpCharges + 1, player.Abilities.AirJumpCharges);
-            player.AirDashCharges = System.Math.Min(player.AirDashCharges + 1, player.Abilities.AirDashCharges);
+            //player.AirJumpCharges = System.Math.Min(player.AirJumpCharges + 1, player.Abilities.AirJumpCharges);
+            //player.AirDashCharges = System.Math.Min(player.AirDashCharges + 1, player.Abilities.AirDashCharges);
+            player.AirJumpCharges = 1;
             StartCoroutine(nameof(Disappear));
         }
     }

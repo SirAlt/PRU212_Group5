@@ -4,10 +4,12 @@
 [RequireComponent(typeof(InputManager), typeof(BodyContacts))]
 [RequireComponent(typeof(IMovement), typeof(BoxCollider2D))]
 [RequireComponent(typeof(Animator))]
-public class PlayerController : MonoBehaviour, IMoveable, IFerriable, IDamageable, IHealable
+public class PlayerController : MonoBehaviour, IMoveable, IDraggable, IDamageable, IHealable
 {
     [field: SerializeField] public PlayerStats Stats { get; private set; }
     [field: SerializeField] public PlayerAbilities Abilities { get; private set; }
+
+    [field: SerializeField] public Collider2D InteractionBox { get; private set; }
 
     #region State Machine
 
@@ -272,19 +274,19 @@ public class PlayerController : MonoBehaviour, IMoveable, IFerriable, IDamageabl
             CurrentHealth = 0;
         }
         NotifyAnimationEventTriggered(AnimationTriggerType.DyingStart);
-        deathScreenManager.ShowDeathScreen();
-
+        CharacterEvents.characterDied?.Invoke();
     }
 
     #endregion
 
     #region IHealable
 
-    public void Heal(float amount)
+    public bool Heal(float amount)
     {
-        if (StateMachine.CurrentState is IDeathState) return;
+        if (StateMachine.CurrentState is IDeathState || CurrentHealth >= MaxHealth) return false;
         CurrentHealth += amount;
         CharacterEvents.characterHealed?.Invoke(gameObject, amount);
+        return true;
     }
 
     #endregion
@@ -328,7 +330,7 @@ public class PlayerController : MonoBehaviour, IMoveable, IFerriable, IDamageabl
         DeadState = new PlayerDeadState(this, StateMachine);
 
         Animator = GetComponent<Animator>();
-        FX = GetComponent<PlayerFX>();
+        FX = GetComponentInChildren<PlayerFX>();
 
         deathScreenManager = FindObjectOfType<DeathScreenManager>();
         winScreenManager = FindObjectOfType<WinScreenManager>();
@@ -354,6 +356,8 @@ public class PlayerController : MonoBehaviour, IMoveable, IFerriable, IDamageabl
 
     private void FixedUpdate()
     {
+        HandleCheats();
+
         StateMachine.PhysicsUpdate();
 
         _rb.position += FramePlatformMovement;
@@ -363,11 +367,32 @@ public class PlayerController : MonoBehaviour, IMoveable, IFerriable, IDamageabl
         Mover.EnvironmentVelocity = Vector2.zero;
     }
 
+    private void HandleCheats()
+    {
+        if (Input.InvincibilityCheatPressed)
+        {
+            if (!_invincibilityCheatOn)
+            {
+                _invincibilityCheatOn = true;
+                GetComponent<SpriteRenderer>().color = Color.gray;
+                Hurtbox.Collider.enabled = false;
+            }
+            else
+            {
+                _invincibilityCheatOn = false;
+                GetComponent<SpriteRenderer>().color = Color.white;
+                Hurtbox.Collider.enabled = true;
+            }
+        }
+    }
+
+    private bool _invincibilityCheatOn;
+
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        if (Stats == null) Debug.LogWarning($"Please assign a(n) {nameof(PlayerStats)} asset to the Player Controller's Stats slot of [ {gameObject.name} ].", this);
-        if (Abilities == null) Debug.LogWarning($"Please assign a(n) {nameof(PlayerAbilities)} asset to the Player Controller's Abilties slot of [ {gameObject.name} ].", this);
+        if (Stats == null) Debug.LogWarning($"Please assign a(n) {nameof(PlayerStats)} asset to the Player Controller's Stats slot of [ {gameObject.name} ].", gameObject);
+        if (Abilities == null) Debug.LogWarning($"Please assign a(n) {nameof(PlayerAbilities)} asset to the Player Controller's Abilities slot of [ {gameObject.name} ].", gameObject);
     }
 #endif
 }

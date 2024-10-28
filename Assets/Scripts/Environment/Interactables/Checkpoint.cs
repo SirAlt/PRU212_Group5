@@ -1,17 +1,15 @@
 using UnityEngine;
+using static Constants;
 
 [RequireComponent(typeof(Collider2D))]
-public class Checkpoint : MonoBehaviour
+public class Checkpoint : MonoBehaviour, ITriggerable
 {
-    private const string PlayerTag = "Player";
-
     private CheckpointSystem _checkpointSys;
 
     private SpriteRenderer _sprite;
     private Animator _anim;
-    private Collider2D _detector;
 
-    private bool _enabled;
+    private bool _isActiveCheckpoint;
 
     private void Awake()
     {
@@ -19,7 +17,6 @@ public class Checkpoint : MonoBehaviour
 
         _sprite = GetComponent<SpriteRenderer>();
         _anim = GetComponent<Animator>();
-        _detector = GetComponent<Collider2D>();
     }
 
     private void Start()
@@ -29,32 +26,49 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag(PlayerTag))
+        if (collision.transform.parent.CompareTag(PlayerTag))
         {
-            _checkpointSys.SetLastCheckpoint(this);
+            if (!_isActiveCheckpoint)
+            {
+                _checkpointSys.SetLastCheckpoint(this);
+            }
+            if (collision.transform.parent.TryGetComponent<IHealable>(out var target))
+            {
+                target.Heal(target.MaxHealth);
+            }
         }
     }
 
     public void Activate()
     {
-        _enabled = true;
+        _isActiveCheckpoint = true;
         _sprite.color = Color.white;
         _anim.speed = 1.0f;
-        _detector.enabled = false;
     }
 
     public void Deactivate()
     {
-        _enabled = false;
+        _isActiveCheckpoint = false;
         _sprite.color = new Color(0.4f, 0.4f, 0.4f);
-        _detector.enabled = true;
     }
 
     public void OnAnimationReachedLowestPoint()
     {
-        if (!_enabled)
+        if (!_isActiveCheckpoint)
         {
             _anim.speed = 0f;
         }
+    }
+
+    bool ITriggerable.IsOn => _isActiveCheckpoint;
+
+    void ITriggerable.TriggerOn()
+    {
+        if (!_isActiveCheckpoint) _checkpointSys.SetLastCheckpoint(this);
+    }
+
+    void ITriggerable.TriggerOff()
+    {
+        _checkpointSys.ResetCheckpoint();
     }
 }

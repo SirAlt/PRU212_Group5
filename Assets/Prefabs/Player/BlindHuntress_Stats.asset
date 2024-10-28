@@ -35,7 +35,7 @@ MonoBehaviour:
   ApexAccelerationBonus: 120
   ApexAntiGravityBonus: 25
   GroundingVelocity: 15
-  DropThroughInitialGracePeriod: 0.06
+  DropThroughInitialGracePeriod: 0.01
   CanMaintainDropThrough: 1
   WallJumpCutoffPoint: 0.04
   WallJumpInitialPeriod: 0.12
@@ -45,7 +45,7 @@ MonoBehaviour:
   DashEndEarlyWindow: 0.24
   CanJumpCancelDash: 1
   DashCollisionBoxScale: {x: 1, y: 1}
-  DashHurtboxScale: {x: 1, y: 0.7}
+  DashHurtboxScale: {x: 1, y: 0.4}
   SlashBuffer: 0.1
   CanJumpCancelAttack: 1
   CanDashCancelAttack: 1
@@ -65,9 +65,9 @@ MonoBehaviour:
   AirFlinchKnockupSpeed: 10
   AirFlinchResidualKnockbackSpeedRatio: 0.2
   CanJumpRecoverFromFlinch: 1
-  FlinchRecoveryCutoffTime: 0.36
+  FlinchRecoveryCutoffTime: 0.24
   GetUpFrameCount: 6
-  InvincibleGetUp: 1
+  InvincibleGetUp: 0
   PostDamageInvincibilityDuration: 2
   InvincibilityFlickerInterval: 0.1
   TransitionToDeathSafeguardTimeLimit: 5

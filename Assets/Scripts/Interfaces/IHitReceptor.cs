@@ -5,6 +5,8 @@ public interface IHitReceptor
 {
     void TakeHit(float damage, Vector2 force, HitAttributes hitAttributes = 0);
 
+    void SetActive(bool active);
+
     [Flags]
     public enum HitAttributes
     {

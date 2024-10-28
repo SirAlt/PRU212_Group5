@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [DefaultExecutionOrder(-5)]
-public class FallingPlatform : MonoBehaviour, ICanMove
+public class FallingPlatform : MonoBehaviour, IMover
 {
     private const float DestinationReachedOffset = 0.01f;
 
@@ -30,29 +30,34 @@ public class FallingPlatform : MonoBehaviour, ICanMove
     private bool _isFalling;
 
     public Vector2 MoveVector { get; private set; }
+    public bool CalculateOnly { get; set; }
 
     private void Awake()
     {
         _sprite = GetComponent<SpriteRenderer>();
         _anim = GetComponent<Animator>();
         _rb = _platform.GetComponent<Rigidbody2D>();
+
+        _positionBeforeFall = _platform.transform.localPosition;
     }
 
     private void FixedUpdate()
     {
         if (!_isFalling) return;
 
-        // Do falling here because we need to go before MovingPlatform capturer and PlayerController.
+        // Do falling here because we need to act before MovingPlatform capturer and PlayerController.
         if (_distanceFallen < fallDistance - DestinationReachedOffset)
         {
             // cf. WaypointMover for details on this ugly hack.
-            var oldPos = (Vector2)_platform.transform.position;
-            var newPos = Vector2.MoveTowards(_platform.transform.position, _fallDestination, fallSpeed * Time.fixedDeltaTime);
-            _rb.position = newPos;
-            _platform.transform.position = newPos;
-
-            // Update movement vector for the ICanMove interface.
+            var oldPos = (Vector2)_platform.transform.localPosition;
+            var newPos = Vector2.MoveTowards(_platform.transform.localPosition, _fallDestination, fallSpeed * Time.fixedDeltaTime);
             MoveVector = newPos - oldPos;
+
+            if (!CalculateOnly)
+            {
+                _rb.position += MoveVector;
+                _platform.transform.position += (Vector3)MoveVector;
+            }
 
             _distanceFallen += oldPos.y - newPos.y;
         }
@@ -60,6 +65,20 @@ public class FallingPlatform : MonoBehaviour, ICanMove
         {
             StartCoroutine(nameof(Respawn));
         }
+    }
+
+    private void OnEnable()
+    {
+        _isFalling = false;
+        _distanceFallen = 0f;
+        MoveVector = Vector2.zero;
+
+        _platform.transform.localPosition = _positionBeforeFall;
+        _sprite.enabled = true;
+        _sprite.color = new Color(1f, 1f, 1f, 1f);
+        _anim.speed = 1f;
+        _collision.enabled = true;
+        _detector.enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -77,21 +96,21 @@ public class FallingPlatform : MonoBehaviour, ICanMove
         // Warning shake
         var timer = 0f;
         var dir = 1;
-        var originalSpritePos = _sprite.transform.position;
+        var originalSpritePos = _sprite.transform.localPosition;
         while (timer < shakeTime)
         {
             var amplitude = (1 - timer / shakeTime) * shakeAmplitude;
             dir *= -1;
-            _sprite.transform.position = originalSpritePos + new Vector3(amplitude * dir, 0f, 0f);
+            _sprite.transform.localPosition = originalSpritePos + new Vector3(amplitude * dir, 0f, 0f);
             yield return new WaitForSeconds(shakeInterval);
             timer += shakeInterval;
         }
-        _sprite.transform.position = originalSpritePos;
+        _sprite.transform.localPosition = originalSpritePos;
 
         // Fall
         _isFalling = true;  // Cue FixedUpdate to handle falling.
         _distanceFallen = 0f;
-        _positionBeforeFall = _platform.transform.position;
+        _positionBeforeFall = _platform.transform.localPosition;
         _fallDestination = _positionBeforeFall + new Vector3(0f, -1.0f * fallDistance);
         _anim.speed = 0f;
     }
@@ -109,7 +128,7 @@ public class FallingPlatform : MonoBehaviour, ICanMove
         yield return new WaitForSeconds(respawnDelay - respawnTellTime);
 
         // Telegraph respawn
-        _platform.transform.position = _positionBeforeFall;
+        _platform.transform.localPosition = _positionBeforeFall;
         _sprite.enabled = true;
         _sprite.color = new Color(1f, 1f, 1f, 0.5f);
         yield return new WaitForSeconds(respawnTellTime);

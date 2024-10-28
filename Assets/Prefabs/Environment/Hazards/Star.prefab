@@ -158,7 +158,7 @@ MonoBehaviour:
   attackableLayers:
     serializedVersion: 2
     m_Bits: 512
-  damage: 5
+  damage: 18
   damageTickCooldown: 0.2
+  hitAttributes: 0
   repeatedHitBug: 0
-  instantDeath: 0

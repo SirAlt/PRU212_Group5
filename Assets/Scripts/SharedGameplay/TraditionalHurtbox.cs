@@ -64,7 +64,7 @@ public class TraditionalHurtbox : MonoBehaviour, IHitReceptor
                     goto case InstantKillBehavior.EnforceDeath;
 
                 case InstantKillBehavior.DealInfiniteDamage:
-                    damage = Mathf.Infinity;
+                    damage = MaxxDamage();
                     break;
                 case InstantKillBehavior.DealMaxHealthAsDamage:
                     damage = _host.MaxHealth;
@@ -79,6 +79,22 @@ public class TraditionalHurtbox : MonoBehaviour, IHitReceptor
         }
 
         _host.TakeDamage(damage, force);
+
+        float MaxxDamage()
+        {
+            var dmg = 999f;
+            for (int i = 3; i < 38; i++)
+            {
+                dmg = dmg + 9f * Mathf.Pow(10, i);
+                if (dmg >= _host.MaxHealth * 10f) break;
+            }
+            return dmg;
+        }
+    }
+
+    public void SetActive(bool active)
+    {
+        Collider.enabled = active;
     }
 
     public void GainInvincibility(float duration = -1.0f)
@@ -116,7 +132,7 @@ public class TraditionalHurtbox : MonoBehaviour, IHitReceptor
     {
         if (_configs == null)
         {
-            Debug.LogWarning($"Please assign a(n) {nameof(HurtboxConfigs)} asset to the Configs slot on the {nameof(TraditionalHurtbox)} script of [ {gameObject.name} ]", this);
+            Debug.LogWarning($"Please assign a(n) {nameof(HurtboxConfigs)} asset to the Configs slot on the {nameof(TraditionalHurtbox)} script of [ {gameObject.name} ]", gameObject);
         }
     }
 #endif

@@ -47,4 +47,6 @@ public class CheckpointSystem : MonoBehaviour
         }
         LastCheckpoint.Activate();
     }
+
+    public void ResetCheckpoint() => SetLastCheckpoint(_checkpoints[0]);
 }

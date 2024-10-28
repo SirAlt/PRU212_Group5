@@ -25,9 +25,9 @@ MonoBehaviour:
   WallLayer:
     serializedVersion: 2
     m_Bits: 128
-  GroundTouchDistance: 0.045
-  CeilingTouchDistance: 0.045
-  WallTouchDistance: 0.045
+  GroundTouchDistance: 0.08
+  CeilingTouchDistance: 0.05
+  WallTouchDistance: 0.05
   MaxSlopeAngle: 60
   OneWayPlatformLayer:
     serializedVersion: 2

@@ -11,14 +11,8 @@ public class PlayerGetUpState : PlayerState
         base.EnterState();
         player.Input.ClearJump();
         player.FrameVelocity.y = player.Stats.GetUpFrameCount * player.Stats.GravitationalAcceleration * Time.fixedDeltaTime;
-        if (player.Stats.InvincibleGetUp) player.Hurtbox.GainInvincibility();
+        if (player.Stats.InvincibleGetUp) player.Hurtbox.GainInvincibility(player.Stats.GetUpFrameCount * Time.fixedDeltaTime);
         player.Animator.Play(PlayerController.RecoveryJumpAnim, -1, 0f);
-    }
-
-    public override void ExitState()
-    {
-        base.ExitState();
-        if (player.Stats.InvincibleGetUp) player.Hurtbox.RemoveInvincibility();
     }
 
     public override void CheckForTransition()

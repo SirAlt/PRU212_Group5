@@ -27,17 +27,17 @@ TagManager:
   - EnemyHitbox
   - EnemyHurtbox
   - EnemyDetector
-  - Objective
+  - TouchInteract
   - Portal
   - HazardHitbox
   - CrumblingPlatform
   - OneWayPlatform
   - MovingPlatform
   - InvisWall
-  - PowerGem
+  - AttackInteract
   - HazardDetector
-  - 
-  - 
+  - LightHitbox
+  - PlayerBody
   - 
   - 
   - 
@@ -48,4 +48,28 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3153843357
+    locked: 0
+  - name: Water
+    uniqueID: 1285758721
+    locked: 0
+  - name: Terrain
+    uniqueID: 3184001307
+    locked: 0
+  - name: TerrainFeatures
+    uniqueID: 852025135
+    locked: 0
+  - name: Decor
+    uniqueID: 140421131
+    locked: 0
+  - name: Interactive
+    uniqueID: 253555339
+    locked: 0
+  - name: Entity
+    uniqueID: 3075998705
+    locked: 0
+  - name: Foreground
+    uniqueID: 1406261113
     locked: 0

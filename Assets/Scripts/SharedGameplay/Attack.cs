@@ -16,13 +16,13 @@ public class Attack : MonoBehaviour
     // Stores the last point in time the attack connected, for each individual target.
     protected readonly Dictionary<GameObject, float> lastHitTimes = new();
 
-    protected Collider2D hitbox;
+    public Collider2D Hitbox { get; private set; }
 
     protected virtual void Awake()
     {
-        hitbox = GetComponent<Collider2D>();
-        hitbox.isTrigger = true;
-        hitbox.enabled = false;
+        Hitbox = GetComponent<Collider2D>();
+        Hitbox.isTrigger = true;
+        Hitbox.enabled = false;
     }
 
     protected virtual void Start()
@@ -35,7 +35,7 @@ public class Attack : MonoBehaviour
 
     public void SetActive(bool active)
     {
-        hitbox.enabled = active;
+        Hitbox.enabled = active;
         lastHitTimes.Clear();
     }
 

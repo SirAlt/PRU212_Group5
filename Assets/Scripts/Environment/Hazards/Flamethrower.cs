@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
+[RequireComponent(typeof(SpriteRenderer), typeof(Animator))]
 public class Flamethrower : Hazard
 {
     [SerializeField] private float _activeDuration;
@@ -7,6 +9,7 @@ public class Flamethrower : Hazard
 
     private SpriteRenderer _sprite;
     private Animator _animator;
+    private Light2D _light;
 
     private float _timer;
     private bool _active;
@@ -17,6 +20,7 @@ public class Flamethrower : Hazard
 
         _sprite = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
+        _light = GetComponent<Light2D>();
     }
 
     protected override void Start()
@@ -54,6 +58,7 @@ public class Flamethrower : Hazard
         _timer = on ? _activeDuration : _dormantDuration;
         _sprite.enabled = on;
         _animator.enabled = on;
+        if (_light) _light.enabled = on;
         SetActive(on);
     }
 }

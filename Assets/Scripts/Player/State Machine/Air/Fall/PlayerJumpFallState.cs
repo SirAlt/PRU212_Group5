@@ -37,7 +37,7 @@ public class PlayerJumpFallState : PlayerFallState, IJumpState
 
         if (stateMachine.PrevState is not PlayerJumpState prevJumpState)
         {
-            //Debug.LogWarning($"Previous state was not a [ Jump ] state. Using defaults for jump state logics.");
+            //Debug.Log($"Previous state was not a [ Jump ] state. Using defaults for jump state logics.", gameObject);
             _jumpState = _defaultJumpState;
         }
         else

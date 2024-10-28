@@ -13,6 +13,12 @@ public class PlayerDeadState : PlayerDeathState, IDeathState
         player.Animator.Play(PlayerController.DeathAnim, -1, 0f);
     }
 
+    public override void ExitState()
+    {
+        base.ExitState();
+        player.InteractionBox.enabled = true;
+    }
+
     public override void CheckForTransition()
     {
         // No. Unless... we later implement revive.

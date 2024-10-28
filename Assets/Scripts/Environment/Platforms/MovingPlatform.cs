@@ -2,17 +2,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DefaultExecutionOrder(-1)]
+[RequireComponent(typeof(Collider2D))]
 public class MovingPlatform : MonoBehaviour
 {
     [SerializeField] private LayerMask ferriableLayers;
+    [SerializeField] private bool topsideOnly;
 
-    private readonly List<IFerriable> _ferriedObjects = new();
-    private ICanMove _mover;
+    private readonly List<IDraggable> _ferriedObjects = new();
+    private Collider2D _detector;
+    private IMover _mover;
 
     private void Awake()
     {
-        // Get component in parent or siblings
-        _mover = transform.parent.GetComponentInChildren<ICanMove>();
+        _detector = GetComponent<Collider2D>();
+        _mover = transform.parent.GetComponentInChildren<IMover>();
+    }
+
+    private void Start()
+    {
+        _detector.isTrigger = true;
     }
 
     private void FixedUpdate()
@@ -25,19 +33,42 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ((ferriableLayers & (1 << collision.gameObject.layer)) != 0
-            && collision.TryGetComponent<IFerriable>(out var ferriableObj))
+        if ((ferriableLayers & (1 << collision.gameObject.layer)) != 0)
         {
-            _ferriedObjects.Add(ferriableObj);
+            if (topsideOnly && collision.bounds.min.y < _detector.bounds.min.y)
+                return;
+
+            var ferriableObj = collision.transform.parent.GetComponentInChildren<IDraggable>();
+            if (ferriableObj != null)
+            {
+                _ferriedObjects.Add(ferriableObj);
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!topsideOnly) return;
+
+        if (collision.bounds.min.y < _detector.bounds.min.y)
+        {
+            var ferriableObj = collision.transform.parent.GetComponentInChildren<IDraggable>();
+            if (ferriableObj != null)
+            {
+                _ferriedObjects.Remove(ferriableObj);
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if ((ferriableLayers & (1 << collision.gameObject.layer)) != 0
-             && collision.TryGetComponent<IFerriable>(out var ferriableObj))
+        if ((ferriableLayers & (1 << collision.gameObject.layer)) != 0)
         {
-            _ferriedObjects.Remove(ferriableObj);
+            var ferriableObj = collision.transform.parent.GetComponentInChildren<IDraggable>();
+            if (ferriableObj != null)
+            {
+                _ferriedObjects.Remove(ferriableObj);
+            }
         }
     }
 }

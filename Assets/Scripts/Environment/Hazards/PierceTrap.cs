@@ -1,7 +1,9 @@
+using System.Collections;
 using UnityEngine;
 
 public class PierceTrap : Hazard, ITriggerable
 {
+    private const string IdleAnim = "Idle";
     private const string TriggeredAnim = "Triggered";
     private const string ExtendAnim = "Extend";
     private const string RetractAnim = "Retract";
@@ -13,10 +15,27 @@ public class PierceTrap : Hazard, ITriggerable
 
     private Animator _anim;
 
+    private State _state;
+
+    private enum State
+    {
+        Armed,
+        Triggering,
+        Active,
+        Retracting,
+        Rearming,
+    }
+
     protected override void Awake()
     {
         base.Awake();
         _anim = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        _state = State.Armed;
+        _detector.enabled = true;
     }
 
     protected override void Start()
@@ -25,28 +44,57 @@ public class PierceTrap : Hazard, ITriggerable
         SetActive(false);
     }
 
-    void ITriggerable.Trigger()
+    bool ITriggerable.IsOn => _state != State.Armed && _state != State.Rearming;
+
+    void ITriggerable.TriggerOn()
     {
+        if (_state != State.Armed) return;
+        StartCoroutine(nameof(Rickety));
+    }
+
+    void ITriggerable.TriggerOff()
+    {
+        if (_state == State.Triggering)
+        {
+            StopCoroutine(nameof(Rickety));
+            _state = State.Armed;
+            _detector.enabled = true;
+            _anim.Play(IdleAnim, -1, 0f);
+        }
+        else if (_state == State.Active)
+        {
+            StopCoroutine(nameof(Shank));
+            Retract();
+        }
+    }
+
+    private IEnumerator Rickety()
+    {
+        _state = State.Triggering;
+
         _detector.enabled = false;
         _anim.Play(TriggeredAnim, -1, 0f);
-        Invoke(nameof(Stab), tellTime);
-        Invoke(nameof(Retract), tellTime + stayTime);
+
+        yield return new WaitForSeconds(tellTime);
+        StartCoroutine(nameof(Shank));
     }
 
-    void ITriggerable.Reset()
+    private IEnumerator Shank()
     {
-        Retract();
-    }
+        _state = State.Active;
 
-    private void Stab()
-    {
         // TODO: Multiple hitbox stages.
         SetActive(true);
         _anim.Play(ExtendAnim, -1, 0f);
+
+        yield return new WaitForSeconds(stayTime);
+        Retract();
     }
 
     private void Retract()
     {
+        _state = State.Retracting;
+
         // TODO: Multiple hitbox stages.
         SetActive(false);
         _anim.Play(RetractAnim, -1, 0f);
@@ -55,11 +103,17 @@ public class PierceTrap : Hazard, ITriggerable
     // AnimEvent: Retract [End]
     public void OnFullyRetracted()
     {
-        Invoke(nameof(Rearm), rearmTime);
+        StartCoroutine(nameof(Rearm));
     }
 
-    private void Rearm()
+    private IEnumerator Rearm()
     {
+        _state = State.Rearming;
+
+        yield return new WaitForSeconds(rearmTime);
+
+        _state = State.Armed;
         _detector.enabled = true;
+        //_anim.Play(IdleAnim, -1, 0f);     // [Retract] -> [Idle] has ExitTime already set in Animator
     }
 }

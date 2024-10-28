@@ -1,32 +1,48 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class DetectionZone : MonoBehaviour
 {
-    [HideInInspector] public UnityEvent noCollidersRemain;
+    [SerializeField] private float trackingZoneMultiplier;
 
-    public List<Collider2D> detectedColliders = new();
-
+    [HideInInspector] public List<Collider2D> detected = new();
     private Collider2D _col;
+    private Vector3 _originalScale;
 
     private void Awake()
     {
         _col = GetComponent<Collider2D>();
         _col.isTrigger = true;
+        _originalScale = transform.localScale;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        detectedColliders.Add(collision);
+        if (detected.Contains(collision)) return;
+        if (detected.Count == 0)
+        {
+            transform.localScale *= trackingZoneMultiplier;
+        }
+        detected.Add(collision);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        detectedColliders.Remove(collision);
-        if (detectedColliders.Count <= 0)
+        detected.Remove(collision);
+        if (detected.Count == 0)
         {
-            noCollidersRemain.Invoke();
+            _col.transform.localScale = Vector3.one;
         }
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        foreach (var collider in detected)
+        {
+            Gizmos.DrawLine(transform.position, collider.transform.position);
+        }
+    }
+#endif
 }

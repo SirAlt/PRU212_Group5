@@ -18,8 +18,7 @@ GameObject:
   - component: {fileID: 5103759520306719172}
   - component: {fileID: 4663513826388212083}
   - component: {fileID: 295546277977677726}
-  - component: {fileID: 7289958279613650063}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: The Blind Huntress
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -39,6 +38,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4892703165313340482}
   - {fileID: 137853279215528022}
   - {fileID: 5854591228354303236}
   - {fileID: 324732437552858212}
@@ -82,8 +82,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1218968591
+  m_SortingLayer: 6
   m_SortingOrder: 10
   m_Sprite: {fileID: -1728898631, guid: 919c57cbfd5060445b0e6277f67f8c08, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -297,6 +297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Stats>k__BackingField: {fileID: 11400000, guid: 0f7615d53c83960458dc3f9bb5007677, type: 2}
   <Abilities>k__BackingField: {fileID: 11400000, guid: 774210a062d22af4c9fc801fae8ecca5, type: 2}
+  <InteractionBox>k__BackingField: {fileID: 9011117725410929970}
   <StandSlash>k__BackingField: {fileID: 1058981217937687820}
   <RunSlash>k__BackingField: {fileID: 2087068943006017966}
   <AirSlash>k__BackingField: {fileID: 8115814769250397304}
@@ -342,18 +343,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Configurations>k__BackingField: {fileID: 11400000, guid: 07c2048a0211922448bd3a0e179fdf4e, type: 2}
---- !u!114 &7289958279613650063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 958784022297143953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 750a73b1a9e85f34a865ff3fc4fd224a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1388215830560301594
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,6 +438,7 @@ MonoBehaviour:
     m_Bits: 4096
   damage: 10
   damageTickCooldown: 0.2
+  hitAttributes: 0
   repeatedHitBug: 0
 --- !u!1 &1493992146345326285
 GameObject:
@@ -543,9 +533,87 @@ MonoBehaviour:
   attackableLayers:
     serializedVersion: 2
     m_Bits: 4096
-  damage: 8
+  damage: 16
   damageTickCooldown: 0.2
+  hitAttributes: 0
   repeatedHitBug: 0
+--- !u!1 &2769304617699093818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4892703165313340482}
+  - component: {fileID: 9011117725410929970}
+  m_Layer: 6
+  m_Name: InteractionBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4892703165313340482
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2769304617699093818}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3819084104071349918}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &9011117725410929970
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2769304617699093818}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.25, y: 0.74}
+  m_EdgeRadius: 0
 --- !u!1 &5921916025187759805
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,8 +798,9 @@ MonoBehaviour:
   attackableLayers:
     serializedVersion: 2
     m_Bits: 4096
-  damage: 5
+  damage: 8
   damageTickCooldown: 0.2
+  hitAttributes: 0
   repeatedHitBug: 0
 --- !u!1 &7182978655249773461
 GameObject:
@@ -828,6 +897,7 @@ MonoBehaviour:
     m_Bits: 4096
   damage: 8
   damageTickCooldown: 0.2
+  hitAttributes: 0
   repeatedHitBug: 0
 --- !u!1 &8456569474857873164
 GameObject:
@@ -838,7 +908,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 137853279215528022}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Attacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -873,7 +943,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 324732437552858212}
-  - component: {fileID: 1904540905683110063}
+  - component: {fileID: 1459296519746926379}
   m_Layer: 2
   m_Name: AudiovisualFX
   m_TagString: Untagged
@@ -896,7 +966,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3819084104071349918}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1904540905683110063
+--- !u!114 &1459296519746926379
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -908,3 +978,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 750a73b1a9e85f34a865ff3fc4fd224a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minScreenShake: 1
+  maxScreenShake: 5
+  screenShakeDuration: 0.5

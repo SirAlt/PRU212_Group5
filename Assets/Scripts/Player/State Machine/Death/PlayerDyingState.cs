@@ -18,8 +18,16 @@ public class PlayerDyingState : PlayerDeathState, IDeathState
 
         if (player.BodyContacts.Ground) player.FrameVelocity.x = 0f;
 
+        player.InteractionBox.enabled = false;
+
         player.FX.StopAllEffects();
         player.Animator.Play(PlayerController.DyingAnim, -1, 0f);
+    }
+
+    public override void ExitState()
+    {
+        base.ExitState();
+        ScreenShake.Instance.Shake(_safeguardTimer, 0.25f);
     }
 
     public override void CheckForTransition()

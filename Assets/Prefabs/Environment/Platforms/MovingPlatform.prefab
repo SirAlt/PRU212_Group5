@@ -94,7 +94,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7735535341355405738}
@@ -223,10 +223,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.5, y: 0.25}
-      - {x: 0.5, y: 0.25}
-      - {x: 0.5, y: 0.05}
-      - {x: -0.5, y: 0.05}
+    - - {x: -0.65, y: 0.3}
+      - {x: 0.65, y: 0.3}
+      - {x: 0.65, y: -0.2}
+      - {x: -0.65, y: -0.2}
   m_UseDelaunayMesh: 0
 --- !u!114 &3038970313926502720
 MonoBehaviour:
@@ -240,11 +240,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6001a7519d820a4db6b9352ee99766c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.5
+  moveSpeed: 2
   waypointReachedDistance: 0.05
+  startingWaypointIndex: 0
+  teleportToStartingWaypoint: 0
   waypoints:
   - {fileID: 5339267065527217817}
   - {fileID: 4002856321320760595}
+  restTimes: []
   pathEndBehavior: 1
 --- !u!1 &2131243947951506084
 GameObject:
@@ -387,10 +390,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.5, y: 0.4}
-      - {x: 0.5, y: 0.4}
-      - {x: 0.5, y: 0.05}
-      - {x: -0.5, y: 0.05}
+    - - {x: -0.8, y: 0.4}
+      - {x: 0.8, y: 0.4}
+      - {x: 0.8, y: 0}
+      - {x: -0.8, y: 0}
   m_UseDelaunayMesh: 0
 --- !u!114 &6996380229839428104
 MonoBehaviour:
@@ -407,3 +410,4 @@ MonoBehaviour:
   ferriableLayers:
     serializedVersion: 2
     m_Bits: 64
+  topsideOnly: 0

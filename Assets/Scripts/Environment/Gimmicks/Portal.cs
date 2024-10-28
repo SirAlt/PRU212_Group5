@@ -28,4 +28,16 @@ public class Portal : MonoBehaviour
             _justPortaledObjects.Remove(collision.gameObject);
         }
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        if (!destination) return;
+        if (destination.TryGetComponent<Portal>(out _))
+            Gizmos.color = Color.cyan;
+        else
+            Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, destination.position);
+    }
+#endif
 }

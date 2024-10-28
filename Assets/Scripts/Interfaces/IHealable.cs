@@ -3,5 +3,5 @@
     float CurrentHealth { get; }
     float MaxHealth { get; }
 
-    void Heal(float amount);
+    bool Heal(float amount);
 }

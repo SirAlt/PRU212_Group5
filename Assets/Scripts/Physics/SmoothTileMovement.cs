@@ -34,7 +34,7 @@ public class SmoothTileMovement : MonoBehaviour, IMovement
     private void Awake()
     {
         _xFilter = new ContactFilter2D();
-        _xFilter.SetLayerMask(Configurations.ObstacleLayer);
+        _xFilter.SetLayerMask(Configurations.ObstacleLayer | Configurations.OneWayPlatformLayer);
         _xFilter.useTriggers = false;
 
         _yFilter = new ContactFilter2D();
@@ -70,6 +70,9 @@ public class SmoothTileMovement : MonoBehaviour, IMovement
 
             if (terrainHit)
             {
+                EliminateOneWayPlatforms();
+                if (_hits.Count == 0) goto APPLY_MOVEMENT;
+
                 float distance;
                 var closestDistance = Mathf.Infinity;
                 RaycastHit2D closestHit = _hits[0];
@@ -104,6 +107,7 @@ public class SmoothTileMovement : MonoBehaviour, IMovement
                     xStep = Mathf.Sign(xStep) * (closestDistance - Configurations.CollisionOffset);
                 }
             }
+        APPLY_MOVEMENT:
             _rb.position = new Vector2(_rb.position.x + xStep, _rb.position.y);
         }
 
@@ -116,15 +120,7 @@ public class SmoothTileMovement : MonoBehaviour, IMovement
 
             if (terrainHit)
             {
-                for (int i = _hits.Count - 1; i >= 0; --i)
-                {
-                    var hit = _hits[i];
-                    if ((Configurations.OneWayPlatformLayer & (1 << hit.transform.gameObject.layer)) != 0
-                        && originalBounds.min.y <= hit.collider.bounds.max.y)
-                    {
-                        _hits.Remove(hit);
-                    }
-                }
+                EliminateOneWayPlatforms();
                 if (_hits.Count == 0) goto APPLY_MOVEMENT;
 
                 float distance;
@@ -140,6 +136,30 @@ public class SmoothTileMovement : MonoBehaviour, IMovement
             }
         APPLY_MOVEMENT:
             _rb.position = new Vector2(_rb.position.x, _rb.position.y + yStep);
+        }
+
+        void EliminateOneWayPlatforms()
+        {
+            for (int i = _hits.Count - 1; i >= 0; --i)
+            {
+                var hit = _hits[i];
+                if ((Configurations.OneWayPlatformLayer & (1 << hit.transform.gameObject.layer)) != 0)
+                {
+                    if (Mathf.Abs(hit.point.x - bounds.center.x) <= bounds.extents.x
+                        && Mathf.Abs(hit.point.y - bounds.center.y) <= bounds.extents.y)
+                    {
+                        _hits.Remove(hit);
+                        continue;
+                    }
+
+                    var dot = Vector2.Dot(hit.normal, Vector2.up);
+                    if (dot <= 0 /*|| (dot == 1 && originalBounds.min.y <= hit.collider.bounds.max.y)*/)
+                    {
+                        _hits.Remove(hit);
+                        continue;
+                    }
+                }
+            }
         }
     }
 
@@ -165,7 +185,7 @@ public class SmoothTileMovement : MonoBehaviour, IMovement
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        if (Configurations == null) Debug.LogWarning($"Please assign a(n) {nameof(CollisionConfigs)} asset to the Movement script's Configurations slot of [ {gameObject.name} ].", this);
+        if (Configurations == null) Debug.LogWarning($"Please assign a(n) {nameof(CollisionConfigs)} asset to the Movement script's Configurations slot of [ {gameObject.name} ].", gameObject);
     }
 #endif
 }

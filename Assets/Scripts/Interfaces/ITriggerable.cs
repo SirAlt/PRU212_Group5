@@ -1,5 +1,7 @@
 ﻿public interface ITriggerable
 {
-  public  void Trigger();
-    public void Reset();
+    bool IsOn { get; }
+
+    void TriggerOn();
+    void TriggerOff();
 }

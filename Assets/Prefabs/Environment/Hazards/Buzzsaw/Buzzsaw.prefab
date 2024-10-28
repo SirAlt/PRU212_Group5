@@ -248,11 +248,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6001a7519d820a4db6b9352ee99766c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 10
   waypointReachedDistance: 0.001
+  startingWaypointIndex: 0
+  teleportToStartingWaypoint: 0
   waypoints:
   - {fileID: 414041560506920295}
   - {fileID: 5453991218328050777}
+  restTimes:
+  - 0.5
+  - 0.5
   pathEndBehavior: 1
 --- !u!114 &1569037277145971370
 MonoBehaviour:
@@ -271,8 +276,8 @@ MonoBehaviour:
     m_Bits: 512
   damage: 12
   damageTickCooldown: 0.2
+  hitAttributes: 0
   repeatedHitBug: 0
-  instantDeath: 0
 --- !u!1 &3348448330967150394
 GameObject:
   m_ObjectHideFlags: 0

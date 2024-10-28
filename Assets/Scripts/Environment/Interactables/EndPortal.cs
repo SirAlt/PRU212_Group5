@@ -1,10 +1,9 @@
 using UnityEngine;
+using static Constants;
 
 [RequireComponent(typeof(SpriteRenderer), typeof(Collider2D))]
 public class EndPortal : MonoBehaviour
 {
-    private const string PlayerTag = "Player";
-
     private SpriteRenderer _sprite;
     private Collider2D _detector;
 
@@ -22,7 +21,7 @@ public class EndPortal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag(PlayerTag))
+        if (collision.transform.parent.CompareTag(PlayerTag))
         {
             MissionManager.Instance.OnLevelCompleted();
         }

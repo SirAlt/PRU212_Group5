@@ -1,10 +1,14 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using static Constants;
 
 public class PlayerFX : MonoBehaviour
 {
-    [SerializeField] private readonly string HealthBarTag = "HealthBar";
+    [Header("VFX")]
+    [SerializeField] private float minScreenShake;
+    [SerializeField] private float maxScreenShake;
+    [SerializeField] private float screenShakeDuration;
 
     private PlayerController _player;
     private SpriteRenderer _sprite;
@@ -14,14 +18,33 @@ public class PlayerFX : MonoBehaviour
 
     private void Awake()
     {
-        _player = GetComponent<PlayerController>();
-        _sprite = GetComponent<SpriteRenderer>();
-        _animator = GetComponent<Animator>();
+        _player = transform.parent.GetComponent<PlayerController>();
+        _sprite = transform.parent.GetComponent<SpriteRenderer>();
+        _animator = transform.parent.GetComponent<Animator>();
         _healthBar = GameObject.FindGameObjectWithTag(HealthBarTag).GetComponent<Slider>();
+    }
+
+    private void OnEnable()
+    {
+        CharacterEvents.characterDamaged += ShakeScreenOnDamage;
+    }
+
+    private void OnDisable()
+    {
+        CharacterEvents.characterDamaged -= ShakeScreenOnDamage;
+    }
+
+    private void ShakeScreenOnDamage(GameObject obj, float value)
+    {
+        // Bleh! Why can't we just get an event just for the player?!
+        if (obj != _player.gameObject) return;
+        var intensity = Mathf.Lerp(minScreenShake, maxScreenShake, value / _player.MaxHealth);
+        ScreenShake.Instance.Shake(intensity, screenShakeDuration);
     }
 
     public void StartFlicker(float duration)
     {
+        StopFlicker();
         StartCoroutine(nameof(Flicker));
         Invoke(nameof(StopFlicker), duration);
     }

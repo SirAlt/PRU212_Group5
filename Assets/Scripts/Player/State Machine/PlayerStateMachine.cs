@@ -44,7 +44,7 @@ public class PlayerStateMachine
     public void PhysicsUpdate()
     {
         CheckForTransition();
-        ExecuteTransition();
+        if (Transitioning) ExecuteTransition();
         CurrentState.PhysicsUpdate();
     }
 
@@ -56,15 +56,14 @@ public class PlayerStateMachine
 
     private void ExecuteTransition()
     {
-        if (!Transitioning) return;
-
         CurrentState.ExitState();
         PrevState = CurrentState;
         CurrentState = NextState;
         NextState = null;
         CurrentState.EnterState();
         Transitioning = false;
-        //Debug.Log($"PlayerState transition: [ {PrevState.GetType().Name[6..^5]} ] >> [ {CurrentState.GetType().Name[6..^5]} ]");
+
+        Debug.Log($"PlayerState transition: [ {PrevState.GetType().Name[6..^5]} ] >> [ {CurrentState.GetType().Name[6..^5]} ]");
     }
 
     public void Reset()
