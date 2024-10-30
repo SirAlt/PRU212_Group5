@@ -299,6 +299,7 @@ public class PlayerController : MonoBehaviour, IMoveable, IFerriable, IDamageabl
     [HideInInspector] public Vector2 FrameVelocity;
 
     public IMovement Mover { get; private set; }
+    private WinScreenManager winScreenManager;
     private void Awake()
     {
         BodyContacts = GetComponent<BodyContacts>();
@@ -330,6 +331,7 @@ public class PlayerController : MonoBehaviour, IMoveable, IFerriable, IDamageabl
         FX = GetComponent<PlayerFX>();
 
         deathScreenManager = FindObjectOfType<DeathScreenManager>();
+        winScreenManager = FindObjectOfType<WinScreenManager>();
 
         Mover = GetComponent<IMovement>();
         CollisionBox = GetComponent<BoxCollider2D>();
