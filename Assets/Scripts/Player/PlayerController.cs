@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [DefaultExecutionOrder(0)]
 [RequireComponent(typeof(InputManager), typeof(BodyContacts))]
@@ -265,7 +266,6 @@ public class PlayerController : MonoBehaviour, IMoveable, IDraggable, IDamageabl
         NotifyAnimationEventTriggered(AnimationTriggerType.Flinch);
     }
 
-    private DeathScreenManager deathScreenManager;
     public void Die()
     {
         // In cases of instant-kill effects.
@@ -301,7 +301,10 @@ public class PlayerController : MonoBehaviour, IMoveable, IDraggable, IDamageabl
     [HideInInspector] public Vector2 FrameVelocity;
 
     public IMovement Mover { get; private set; }
-    private WinScreenManager winScreenManager;
+
+    private const string PauseMenuTag = "PauseMenu";
+    private PauseMenu _pauseMenu;
+
     private void Awake()
     {
         BodyContacts = GetComponent<BodyContacts>();
@@ -332,13 +335,11 @@ public class PlayerController : MonoBehaviour, IMoveable, IDraggable, IDamageabl
         Animator = GetComponent<Animator>();
         FX = GetComponentInChildren<PlayerFX>();
 
-        deathScreenManager = FindObjectOfType<DeathScreenManager>();
-        winScreenManager = FindObjectOfType<WinScreenManager>();
-
         Mover = GetComponent<IMovement>();
         CollisionBox = GetComponent<BoxCollider2D>();
         _rb = CollisionBox.attachedRigidbody;
 
+        _pauseMenu = GameObject.FindGameObjectWithTag(PauseMenuTag).GetComponent<PauseMenu>();
     }
 
     private void Start()
@@ -356,6 +357,12 @@ public class PlayerController : MonoBehaviour, IMoveable, IDraggable, IDamageabl
 
     private void FixedUpdate()
     {
+        if (Input.PausePressedThisFrame)
+        {
+            _pauseMenu.Show();
+            return;
+        }
+
         HandleCheats();
 
         StateMachine.PhysicsUpdate();
@@ -369,7 +376,7 @@ public class PlayerController : MonoBehaviour, IMoveable, IDraggable, IDamageabl
 
     private void HandleCheats()
     {
-        if (Input.InvincibilityCheatPressed)
+        if (Input.InvincibilityCheatPressedThisFrame)
         {
             if (!_invincibilityCheatOn)
             {

@@ -42,11 +42,18 @@ public class SequenceCondition : Condition, ITriggerable
             _curStep = 0;
             // In case the current active (incorrect) pin is also the 1st one in the correct sequence.
             //if (pins[answer[0]].IsOn) ++_curStep;
+            SoundManager.Instance.PlaySfx("SequenceIncorrect");
         }
-        else if (++_curStep == answer.Count)
+        else
         {
-            NotifyConditionFulfilled();
+            ++_curStep;
+            SoundManager.Instance.PlaySfx("SequenceCorrect" + _curStep);
+            if (_curStep == answer.Count)
+            {
+                NotifyConditionFulfilled();
+            }
         }
+
     }
 
 #if UNITY_EDITOR

@@ -55,28 +55,43 @@
     <UnityVersion>2022.3.45f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="D:\Vs\vs src\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.45f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.45f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Environment\Gimmicks\HealthPickup.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\PlayerDeathCondition.cs" />
+    <Compile Include="Assets\Scripts\SharedGameplay\Oscillate.cs" />
+    <Compile Include="Assets\Scripts\Environment\Interactables\Lever.cs" />
     <Compile Include="Assets\Scripts\Environment\Interactables\Checkpoint.cs" />
+    <Compile Include="Assets\Scripts\UI\SettingsManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\Environment\Hazards\PierceTrap.cs" />
+    <Compile Include="Assets\Scripts\Environment\Gimmicks\DarkZone.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\Spawnable.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Air\Fall\PlayerJumpFallState.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\ChainActivator.cs" />
     <Compile Include="Assets\Scripts\Player\Ref\ScriptableStats.cs" />
     <Compile Include="Assets\Scripts\Physics\BodyContacts.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Air\Jump\PlayerWallJumpState.cs" />
     <Compile Include="Assets\Scripts\SharedGameplay\Attack.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\Hideable.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IMover.cs" />
     <Compile Include="Assets\Scripts\Physics\SmoothTileMovement.cs" />
     <Compile Include="Assets\Scripts\TilemapToPng.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Flinch\PlayerGroundFlinchState.cs" />
+    <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\Condition.cs" />
+    <Compile Include="Assets\Scripts\UI\SettingsMenu.cs" />
     <Compile Include="Assets\Text\DamagePopupController.cs" />
     <Compile Include="Assets\Scripts\Environment\Hazards\Hazard.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IScenarioTask.cs" />
     <Compile Include="Assets\Scripts\Environment\Interactables\Key.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
+    <Compile Include="Assets\Scripts\Environment\Gimmicks\Lantern.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
@@ -86,35 +101,48 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Scripts\Environment\Platforms\CrumblingPlatform.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Dash\PlayerDashState.cs" />
-    <Compile Include="Assets\Scripts\WinScreenManager.cs" />
     <Compile Include="Assets\Scripts\Player\Ref\PlayerController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\Operation.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
-    <Compile Include="Assets\Scripts\HealthPickup.cs" />
+    <Compile Include="Assets\Scripts\Audio\Sound.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
+    <Compile Include="Assets\Scripts\UI\DeathScreenManager.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Air\IAirState.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Wall\IWallState.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Dash\PlayerAirDashState.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Death\PlayerDyingState.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\CollisionEnterCondition.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\HealOperation.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Air\Fall\PlayerFallState.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerFX.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Air\Jump\PlayerGroundJumpState.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IDraggable.cs" />
+    <Compile Include="Assets\Scripts\UI\TextFade.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\BehaviourOperation.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\Destructible.cs" />
+    <Compile Include="Assets\Scripts\SharedGameplay\DelayedStart.cs" />
     <Compile Include="Assets\Scripts\Enemies\Enemy Types\FlyingEye.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
+    <Compile Include="Assets\Scripts\Audio\PlayBgmOnEnable.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\Spawner.cs" />
+    <Compile Include="Assets\Scripts\UI\PauseManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IMovement.cs" />
-    <Compile Include="Assets\Scripts\Menu\MenuController.cs" />
-    <Compile Include="Assets\Scripts\Enemies\Base\EnemyFlyingEye.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Air\Jump\IJumpState.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IHealable.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Flinch\PlayerGetUpState.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerStats.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Attack\PlayerAirSlashState.cs" />
+    <Compile Include="Assets\Scripts\UI\HealthText.cs" />
+    <Compile Include="Assets\Scripts\UI\VictoryScreen.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\OnDestroyNode.cs" />
     <Compile Include="Assets\Scripts\SharedGameplay\TraditionalHurtbox.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Ground\PlayerGroundState.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Flinch\PlayerAirFlinchState.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\DeactivateOperation.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Attack\PlayerDashSlashState.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Air\Fall\IFallState.cs" />
     <Compile Include="Assets\Scripts\Enemies\Enemy Types\DarkBall.cs" />
@@ -129,13 +157,14 @@
     <Compile Include="Assets\Scripts\Enemies\EnemyFacing.cs" />
     <Compile Include="Assets\Scripts\Enemies\DetectionZone.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IHitReceptor.cs" />
-    <Compile Include="Assets\Scripts\DeathScreenManager.cs" />
-    <Compile Include="Assets\Scripts\Environment\Platforms\DisappearingPlatformCoordinator.cs" />
-    <Compile Include="Assets\Scripts\UIManager\HealthText.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\RandomSelectionActivator.cs" />
     <Compile Include="Assets\Scripts\Environment\Interactables\MissionManager.cs" />
+    <Compile Include="Assets\Scripts\Environment\Gimmicks\BurningLight.cs" />
     <Compile Include="Assets\Scripts\Player\Ref\PlayerAnimator.cs" />
     <Compile Include="Assets\Scripts\Environment\Hazards\ProximityTrigger.cs" />
-    <Compile Include="Assets\Scripts\Interfaces\IFerriable.cs" />
+    <Compile Include="Assets\Scripts\UI\SceneLoader.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\TimeCondition.cs" />
+    <Compile Include="Assets\Scripts\SharedGameplay\WaypointMover.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\Scripts\VFX\HitStop.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
@@ -143,6 +172,7 @@
     <Compile Include="Assets\Scripts\Enemies\Base\Enemy.cs" />
     <Compile Include="Assets\Scripts\Environment\Interactables\EndPortal.cs" />
     <Compile Include="Assets\Scripts\Physics\CollisionConfigs.cs" />
+    <Compile Include="Assets\Scripts\Audio\PlayBgmOnTrigger.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Death\IDeathState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Scripts\Enemies\Enemy Types\SkeletonWarrior.cs" />
@@ -155,43 +185,60 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Air\Fall\PlayerDropThroughFallState.cs" />
-    <Compile Include="Assets\Scripts\UIManager\UIManager.cs" />
     <Compile Include="Assets\Scripts\Player\InputManager.cs" />
     <Compile Include="Assets\Scripts\Environment\Interactables\CheckpointSystem.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Dash\IDashState.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Wall\PlayerWallState.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Death\PlayerDeadState.cs" />
+    <Compile Include="Assets\Scripts\SharedGameplay\ChaseMover.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Wall\PlayerWallSlideState.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\ActivateOperation.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Death\PlayerDeathState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\Environment\Gimmicks\PowerGem.cs" />
-    <Compile Include="Assets\Scripts\Interfaces\ICanMove.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\SequenceCondition.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\Showable.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\Node.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+    <Compile Include="Assets\Scripts\SharedGameplay\TetherMover.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Air\Fall\PlayerNaturalFallState.cs" />
-    <Compile Include="Assets\Scripts\Environment\Platforms\WaypointMover.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\ScanAstarGraphOperation.cs" />
+    <Compile Include="Assets\Scripts\Enemies\Enemy Types\Bite.cs" />
+    <Compile Include="Assets\Scripts\Audio\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Attack\IAttackState.cs" />
     <Compile Include="Assets\Scripts\Environment\Platforms\MovingPlatform.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Dash\PlayerGroundDashState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Air\PlayerAirState.cs" />
     <Compile Include="Assets\Scripts\VFX\ParallaxScrolling.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\SimpleMover.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Ground\PlayerRunState.cs" />
+    <Compile Include="Assets\Scripts\UI\UIManager.cs" />
+    <Compile Include="Assets\Scripts\UI\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\SharedGameplay\HurtboxConfigs.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\RollingWindowActivator.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Flinch\IFlinchState.cs" />
+    <Compile Include="Assets\Scripts\SharedGameplay\Rotate.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Attack\PlayerStandSlashState.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Ground\IGroundState.cs" />
     <Compile Include="Assets\Scripts\Environment\Platforms\FallingPlatform.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAbilities.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Ground\PlayerIdleState.cs" />
+    <Compile Include="Assets\Scripts\UI\WinScreenManager.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\MoveOperation.cs" />
+    <Compile Include="Assets\Scripts\VFX\ScreenShake.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\Air\Jump\PlayerJumpState.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IMoveable.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ITriggerable.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\BehaviorEnabler.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\FulfilledCondition.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IDamageable.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Scripts\Player\Events\CharacterEvents.cs" />
+    <Compile Include="Assets\Scripts\Environment\Scenarios\Convertible.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -560,6 +607,10 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.4\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
+      <HintPath>Assets\AstarPathfindingProject\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">
@@ -1288,6 +1339,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="PackageToolsEditor.csproj">
+      <Project>{E0BB4EC1-F00D-63A0-AD49-01A31E3B2EE7}</Project>
+      <Name>PackageToolsEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="AstarPathfindingProjectEditor.csproj">
+      <Project>{DD350DB8-EDC6-BB07-39EF-950493291C81}</Project>
+      <Name>AstarPathfindingProjectEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="AstarPathfindingProject.csproj">
+      <Project>{44595EF0-7428-0DE5-EA06-732B10DFE500}</Project>
+      <Name>AstarPathfindingProject</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

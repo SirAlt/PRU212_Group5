@@ -13,7 +13,6 @@ public class ScreenShake : MonoBehaviour
         {
             Instance = this;
             OnAwake();
-            //DontDestroyOnLoad(gameObject);
         }
         else
         {

@@ -32,6 +32,7 @@ public class MissionManager : MonoBehaviour
     private const string BlackGemMarkerTag = "BlackGemMarker";
 
     private const string LevelExitTag = "LevelExit";
+    private const string VictoryScreenTag = "VictoryScreen";
 
     private Image _redKeyMarker;
     private Image _blueKeyMarker;
@@ -42,8 +43,7 @@ public class MissionManager : MonoBehaviour
     private Image _blackGemMarker;
 
     private EndPortal _levelExit;
-
-    private int _level = 1;
+    private VictoryScreen _victoryScreen;
 
     private bool _hasRedKey;
     public bool HasRedKey
@@ -123,6 +123,8 @@ public class MissionManager : MonoBehaviour
 
     private void InitLevel(Scene scene, LoadSceneMode sceneMode)
     {
+        if (!scene.name.StartsWith("Level")) return;
+
         _redKeyMarker = GameObject.FindGameObjectWithTag(RedKeyMarkerTag).GetComponent<Image>();
         _blueKeyMarker = GameObject.FindGameObjectWithTag(BlueKeyMarkerTag).GetComponent<Image>();
         _blackKeyMarker = GameObject.FindGameObjectWithTag(BlackKeyMarkerTag).GetComponent<Image>();
@@ -132,6 +134,11 @@ public class MissionManager : MonoBehaviour
         _blackGemMarker = GameObject.FindGameObjectWithTag(BlackGemMarkerTag).GetComponent<Image>();
 
         _levelExit = GameObject.FindGameObjectWithTag(LevelExitTag).GetComponentInChildren<EndPortal>();
+
+        if (scene.name == "Level4")
+        {
+            _victoryScreen = GameObject.FindGameObjectWithTag(VictoryScreenTag).GetComponentInChildren<VictoryScreen>();
+        }
 
         HasRedKey = false;
         HasBlueKey = false;
@@ -183,13 +190,12 @@ public class MissionManager : MonoBehaviour
 
     public void OnLevelCompleted()
     {
-        if (_level == 4)
-        {
-            // TODO: Show victory screen
-            return;
-        }
-
-        SceneManager.LoadScene($"Level" + ++_level);
+        var curLvlName = SceneManager.GetActiveScene().name;
+        if (!int.TryParse(curLvlName[5..], out var curLvlNum)) return;
+        if (curLvlNum == 4)
+            _victoryScreen.Show();
+        else
+            SceneManager.LoadScene($"Level" + ++curLvlNum);
     }
 }
 

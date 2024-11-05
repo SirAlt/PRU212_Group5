@@ -21,7 +21,9 @@ public class InputManager : MonoBehaviour
     public bool SlashPressedThisFrame { get; private set; }
     public float TimeSlashWasPressed { get; private set; } = Mathf.NegativeInfinity;
 
-    public bool InvincibilityCheatPressed { get; private set; }
+    public bool PausePressedThisFrame { get; private set; }
+
+    public bool InvincibilityCheatPressedThisFrame { get; private set; }
 
     private PlayerInput _playerInput;
 
@@ -29,6 +31,8 @@ public class InputManager : MonoBehaviour
     private InputAction _jumpAction;
     private InputAction _dashAction;
     private InputAction _slashAction;
+
+    private InputAction _pauseAction;
     private InputAction _cheatAction;
 
     private void Awake()
@@ -42,6 +46,8 @@ public class InputManager : MonoBehaviour
         _jumpAction = _playerInput.actions["Jump"];
         _dashAction = _playerInput.actions["Dash"];
         _slashAction = _playerInput.actions["Slash"];
+
+        _pauseAction = _playerInput.actions["Pause"];
 
         _cheatAction = _playerInput.actions["InvincibilityCheat"];
     }
@@ -87,7 +93,10 @@ public class InputManager : MonoBehaviour
             TimeSlashWasPressed = Time.time;
         }
 
-        InvincibilityCheatPressed = _cheatAction.WasPerformedThisFrame();
+        if (_pauseAction.WasPerformedThisFrame())
+            PausePressedThisFrame = true;
+        if (_cheatAction.WasPerformedThisFrame())
+            InvincibilityCheatPressedThisFrame = true;
     }
 
     private void FixedUpdate()
@@ -95,6 +104,9 @@ public class InputManager : MonoBehaviour
         JumpPressedThisFrame = false;
         DashPressedThisFrame = false;
         SlashPressedThisFrame = false;
+
+        PausePressedThisFrame = false;
+        InvincibilityCheatPressedThisFrame = false;
     }
 
     public void ClearJump()

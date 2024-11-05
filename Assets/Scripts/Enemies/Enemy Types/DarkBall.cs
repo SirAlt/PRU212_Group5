@@ -34,6 +34,9 @@ public class DarkBall : Attack
 
         _terrainFilter = new ContactFilter2D();
         _terrainFilter.SetLayerMask(terrainLayers);
+
+        _originalScale = transform.localScale;
+        _originalDamage = damage;
     }
 
     private void OnDisable()
@@ -54,8 +57,6 @@ public class DarkBall : Attack
     protected override void Start()
     {
         base.Start();
-        _originalScale = transform.localScale;
-        _originalDamage = damage;
     }
 
     protected override void FixedUpdate()

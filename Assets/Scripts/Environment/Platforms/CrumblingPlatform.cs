@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CrumblingPlatform : MonoBehaviour
 {
+    private const string IdleAnim = "Idle";
     private const string BreakAnim = "Break";
     private const string ReformAnim = "Reform";
 
@@ -23,6 +24,14 @@ public class CrumblingPlatform : MonoBehaviour
     {
         _sprite = GetComponent<SpriteRenderer>();
         _anim = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        _sprite.enabled = true;
+        _anim.Play(IdleAnim, -1, 0f);
+        _detector.enabled = true;
+        _collision.enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

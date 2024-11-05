@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,12 +43,13 @@ public class ProximityTrigger : MonoBehaviour
         {
             _isTriggering = true;
             if (oneTime) _detector.enabled = false;
-            Invoke(nameof(DeliverPayload), activationDelay);
+            StartCoroutine(nameof(DeliverPayload));
         }
     }
 
-    private void DeliverPayload()
+    private IEnumerator DeliverPayload()
     {
+        yield return new WaitForSeconds(activationDelay);
         _isTriggering = false;
         foreach (var payload in _payloads) payload.TriggerOn();
     }

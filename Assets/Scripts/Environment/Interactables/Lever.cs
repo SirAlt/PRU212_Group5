@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -73,12 +75,18 @@ public class Lever : MonoBehaviour, ITriggerable
         if (!_crankQueued && autoResetTime > 0f)
         {
             _crankQueued = true;
-            Invoke(nameof(Crank), autoResetTime);
+            StartCoroutine(nameof(Uncrank));
         }
         else if (_crankQueued)
         {
             _crankQueued = false;
         }
+    }
+
+    private IEnumerator Uncrank()
+    {
+        yield return new WaitForSeconds(autoResetTime);
+        Crank();
     }
 
     private void CrankOn()

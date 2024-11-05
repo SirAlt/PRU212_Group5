@@ -362,7 +362,7 @@ MonoBehaviour:
   spreadAngle: 15
   flinchDistance: 10
   flinchHyperArmor: 1
-  <MaxHealth>k__BackingField: 1024
+  <MaxHealth>k__BackingField: 512
   _currentHealth: 0
 --- !u!114 &4001741596656173719
 MonoBehaviour:

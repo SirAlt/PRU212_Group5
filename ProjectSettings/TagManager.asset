@@ -12,6 +12,8 @@ TagManager:
   - BlackGemMarker
   - LevelExit
   - HealthBar
+  - PauseMenu
+  - VictoryScreen
   layers:
   - Default
   - TransparentFX

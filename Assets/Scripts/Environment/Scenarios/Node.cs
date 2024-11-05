@@ -12,6 +12,7 @@ public class Node : MonoBehaviour, ITriggerable
     [SerializeField] private ChildActivationBehavior childActivationBehavior;
     [SerializeField] private bool autoStart;
     [SerializeField] private bool autoRetry;
+    [SerializeField] private bool replayable;
     [SerializeField] private bool resolveSuccessImmediately;
 
     public enum ChildActivationBehavior
@@ -26,19 +27,22 @@ public class Node : MonoBehaviour, ITriggerable
     [SerializeField] protected bool _activated;
     [SerializeField] protected bool _condFulfilled;
     [SerializeField] protected bool _completed;
-    [SerializeField] protected bool _resolving;
-    [SerializeField] protected bool _resolved;
+    [SerializeField] protected bool _executing;
+    [SerializeField] protected bool _failureResolved;
+    [SerializeField] protected bool _successResolved;
 
     [SerializeField] protected int _currentPhase = -1;
 
-    protected bool InProgress => _activated && !_resolved;
+    protected bool InProgress => _activated && !Resolved;
+    protected bool Resolved => _failureResolved || _successResolved;
 
     protected void OnEnable()
     {
         _condFulfilled = false;
         _completed = false;
-        _resolving = false;
-        _resolved = false;
+        _executing = false;
+        _failureResolved = false;
+        _successResolved = false;
 
         _currentPhase = -1;
     }
@@ -124,8 +128,8 @@ public class Node : MonoBehaviour, ITriggerable
 
     protected virtual void PerformSetup()
     {
-        if (_resolving || _activated) return;
-        _resolving = true;
+        if (_executing || _activated || (_successResolved && !replayable)) return;
+        _executing = true;
 
         OnSetup();
 
@@ -158,7 +162,7 @@ public class Node : MonoBehaviour, ITriggerable
         foreach (var condition in failureConditions)
             condition.Activate();
 
-        _resolving = false;
+        _executing = false;
         _activated = true;
     }
 
@@ -180,9 +184,8 @@ public class Node : MonoBehaviour, ITriggerable
 
     protected virtual void ResolveFailure()
     {
-        if (_resolving || !InProgress) return;
-        if (_resolving) return;
-        _resolving = true;
+        if (_executing || !InProgress) return;
+        _executing = true;
 
         foreach (var condition in successConditions)
             condition.ConditionFulfilled -= Fulfill;
@@ -197,16 +200,16 @@ public class Node : MonoBehaviour, ITriggerable
 
         OnFailure();
 
-        _resolving = false;
-        _resolved = true;
+        _executing = false;
+        _failureResolved = true;
 
         if (autoRetry) PerformSetup();
     }
 
     protected virtual void ResolveSuccess()
     {
-        if (_resolving || !InProgress) return;
-        _resolving = true;
+        if (_executing || !InProgress) return;
+        _executing = true;
 
         foreach (var condition in successConditions)
             condition.ConditionFulfilled -= Fulfill;
@@ -221,8 +224,8 @@ public class Node : MonoBehaviour, ITriggerable
 
         OnSuccess();
 
-        _resolving = false;
-        _resolved = true;
+        _executing = false;
+        _successResolved = true;
     }
 
     protected virtual void OnSetup()

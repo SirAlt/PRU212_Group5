@@ -19,11 +19,6 @@ public class Checkpoint : MonoBehaviour, ITriggerable
         _anim = GetComponent<Animator>();
     }
 
-    private void Start()
-    {
-        Deactivate();
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.parent.CompareTag(PlayerTag))

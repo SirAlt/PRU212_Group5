@@ -23,6 +23,11 @@ public class MovingPlatform : MonoBehaviour
         _detector.isTrigger = true;
     }
 
+    private void OnDisable()
+    {
+        _ferriedObjects.Clear();
+    }
+
     private void FixedUpdate()
     {
         foreach (var obj in _ferriedObjects)

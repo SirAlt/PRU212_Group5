@@ -610,7 +610,7 @@ return !hit;
     {
         _anim.Play(DeathAnim);
         var mod = transform.localScale.x * transform.localScale.y;
-        ScreenShake.Instance.Shake(2f * mod, 0.35f * mod);
+        ScreenShake.Instance.Shake(2f * mod * mod * mod, 0.35f * mod * mod * mod);
     }
 
     private void Dead_Update()

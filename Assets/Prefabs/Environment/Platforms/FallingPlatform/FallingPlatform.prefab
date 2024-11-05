@@ -97,6 +97,7 @@ MonoBehaviour:
   ferriableLayers:
     serializedVersion: 2
     m_Bits: 64
+  topsideOnly: 0
 --- !u!1 &6328706049275321858
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,8 +314,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 253555339
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -305228666, guid: fd39ad4d6e773834aa9a04fca1df7c83, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
