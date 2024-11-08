@@ -35,6 +35,8 @@ public class InputManager : MonoBehaviour
     private InputAction _pauseAction;
     private InputAction _cheatAction;
 
+    private PauseMenu _pauseMenu;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -50,6 +52,8 @@ public class InputManager : MonoBehaviour
         _pauseAction = _playerInput.actions["Pause"];
 
         _cheatAction = _playerInput.actions["InvincibilityCheat"];
+
+        _pauseMenu = GameObject.FindGameObjectWithTag(Constants.PauseMenuTag).GetComponent<PauseMenu>();
     }
 
     private void OnEnable()
@@ -70,6 +74,12 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
+        if (_pauseAction.WasPerformedThisFrame())
+        {
+            _pauseMenu.Trigger();
+            return;
+        }
+
         Move = _moveAction.ReadValue<Vector2>();
 
         if (_jumpAction.WasPerformedThisFrame())
@@ -93,8 +103,6 @@ public class InputManager : MonoBehaviour
             TimeSlashWasPressed = Time.time;
         }
 
-        if (_pauseAction.WasPerformedThisFrame())
-            PausePressedThisFrame = true;
         if (_cheatAction.WasPerformedThisFrame())
             InvincibilityCheatPressedThisFrame = true;
     }

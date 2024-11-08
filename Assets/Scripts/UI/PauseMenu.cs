@@ -6,9 +6,17 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private string titleSceneName;
 
+    private bool IsOn => gameObject.activeSelf;
+
     private void Start()
     {
         gameObject.SetActive(false);
+    }
+
+    public void Trigger()
+    {
+        if (!IsOn) Show();
+        else Resume();
     }
 
     public void Show()

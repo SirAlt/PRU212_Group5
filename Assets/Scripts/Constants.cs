@@ -2,6 +2,7 @@ public static class Constants
 {
     public const string PlayerTag = "Player";
     public const string HealthBarTag = "HealthBar";
+    public const string PauseMenuTag = "PauseMenu";
 
     public const string isMoving = "isMoving";
     public const string isRunning = "isRunning";
