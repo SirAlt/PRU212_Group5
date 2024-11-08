@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6304688fa3e26e4284b05b0a15da163, type: 3}
+  m_Name: BlindHuntress_Collision
+  m_EditorClassIdentifier: 
+  ObstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1048704
+  CollisionOffset: 0.045
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  CeilingLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  WallLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  GroundTouchDistance: 0.08
+  CeilingTouchDistance: 0.05
+  WallTouchDistance: 0.05
+  MaxSlopeAngle: 60
+  OneWayPlatformLayer:
+    serializedVersion: 2
+    m_Bits: 262144

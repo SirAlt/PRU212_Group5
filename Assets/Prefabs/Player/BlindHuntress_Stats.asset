@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dab54491e5d161c48bc87732edf3974b, type: 3}
+  m_Name: BlindHuntress_Stats
+  m_EditorClassIdentifier: 
+  MaxGroundSpeed: 7
+  GroundAcceleration: 9999
+  GroundDeceleration: 9999
+  MaxAirSpeed: 7
+  AirAcceleration: 9999
+  AirDeceleration: 9999
+  GravitationalAcceleration: 100
+  FallSpeedClamp: 20
+  JumpPower: 17.5
+  InitialJumpAcceleration: 0
+  InitialJumpGravityModifier: 0
+  InitialJumpPeriod: 0.1
+  JumpEndEarlyGravityModifier: 3.5
+  JumpCutoffPoint: 0.02
+  JumpEndEarlyWindow: 0.2
+  JumpBuffer: 0.1
+  JumpCooldown: 0.06
+  CoyoteTime: 0.12
+  WallCoyoteTime: 0.06
+  ApexThreshold: 12
+  ApexAccelerationBonus: 120
+  ApexAntiGravityBonus: 25
+  GroundingVelocity: 15
+  DropThroughInitialGracePeriod: 0.01
+  CanMaintainDropThrough: 1
+  WallJumpCutoffPoint: 0.04
+  WallJumpInitialPeriod: 0.12
+  DashSpeed: 14
+  DashDuration: 0.4
+  DashBuffer: 0.36
+  DashEndEarlyWindow: 0.24
+  CanJumpCancelDash: 1
+  DashCollisionBoxScale: {x: 1, y: 1}
+  DashHurtboxScale: {x: 1, y: 0.4}
+  SlashBuffer: 0.1
+  CanJumpCancelAttack: 1
+  CanDashCancelAttack: 1
+  CanAttackMove: 1
+  CancelAttackMoveWhenNoLongerMoving: 1
+  AttackMoveCancelTolerance: 6
+  CanTurnDuringStandingAttack: 0
+  CanTurnDuringAttackMove: 1
+  CanTurnDuringJumpAttack: 1
+  DashSlashMoveSpeed: 8.5
+  GroundFlinchDuration: 0.5
+  GroundFlinchKnockbackDistance: 1
+  GroundFlinchKnockbackSpeed: 7.5
+  AirFlinchDuration: 0.6
+  AirFlinchKnockbackDistance: 1.2
+  AirFlinchKnockbackSpeed: 4.8
+  AirFlinchKnockupSpeed: 10
+  AirFlinchResidualKnockbackSpeedRatio: 0.2
+  CanJumpRecoverFromFlinch: 1
+  FlinchRecoveryCutoffTime: 0.24
+  GetUpFrameCount: 6
+  InvincibleGetUp: 0
+  PostDamageInvincibilityDuration: 2
+  InvincibilityFlickerInterval: 0.1
+  TransitionToDeathSafeguardTimeLimit: 5
+  RespawnDelay: 2
+  PostRespawnInvincibilityDuration: 3
